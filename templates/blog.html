@@ -4,7 +4,15 @@
     <h1>Blog Posts</h1>
     <table>
     {% for post in blog_posts %}
-        <tr>{{ post.text }}</tr>
+        <tr>
+            <ul style="list-style: none">
+                <li style="text-decoration: underline"><strong>{{ post.title }}</strong></li>
+                <br>
+                <li>{{ post.text }}</li>
+                <br>
+                <li><i>{{ post.author }}</i></li>
+            </ul>
+        </tr>
         <hr>
     {% endfor %}
     </table>
