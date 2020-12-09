@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'pages',
     'announcements',
+    'discussion_board',
 ]
 
 MIDDLEWARE = [
@@ -92,6 +93,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
 
 # Local database credentials
 '''
