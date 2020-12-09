@@ -93,17 +93,19 @@ DATABASES = {
 }
 
 # Local database credentials
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'epic',
-        'USER': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-'''
+# NOTE - In PyCharm you can user ctrl+/ to auto comment/uncomment a selection (faster than using multiline-strings)
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'epic',
+#         'USER': 'postgres',
+#         'PASSWORD': 'mysecretpassword',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 
 
 # Password validation
@@ -151,3 +153,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
+AUTH_USER_MODEL = 'accounts.Account'
