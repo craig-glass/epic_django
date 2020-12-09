@@ -18,9 +18,9 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import TemplateView
 
+# Add all new apps to urlpatterns
 urlpatterns = [
     path('', include("login.urls")),
-    path('', include('pages.urls')),
     path('', include('announcements.urls')),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
