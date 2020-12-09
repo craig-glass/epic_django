@@ -15,13 +15,16 @@ header {
 }
 #logoHome {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between ;
     align-items: center;
+    width: 21%;
 }
 #logo {
     font-size: 18px;
 }
+#menuHome {
 
+}
 #signIn {
     width: 400px;
     display: flex;
