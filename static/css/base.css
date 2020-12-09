@@ -1,6 +1,85 @@
-header a {
-    color: blue;
+/* colours #483d8b #8b483d #3d8b48 #3d598b #808b3d
+        #6f3d8b
+*/
+* {
+    margin: 0px;
+    padding: 0px;
+}
+header {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: darkslateblue;
+    padding: 10px;
+}
+#logoHome {
+    display: flex;
+    justify-content: flex-start;
+}
+#logo {
+    font-size: 18px;
+}
+#menuHome {
+   margin-left: 25%;
+}
+
+#signIn {
+    width: 400px;
+    display: flex;
+    justify-content: flex-end;
 }
 a {
     text-decoration: none;
+}
+header a {
+    padding-left: 2%;
+    padding-right: 2%;
+    color: white;
+}
+
+#pageContainer {
+    display: flex;
+    justify-content: space-evenly;
+}
+.container {
+    width: 60%;
+    float: left;
+    color: dimgray;
+    padding: 20px;
+    background: floralwhite;
+    border-left: 1px solid darkslateblue;
+    border-right: 1px solid darkslateblue;
+    border-bottom: 1px solid darkslateblue;
+    min-height: 80vh;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#menuRight, #menuLeft {
+
+    float: left;
+    margin-top: 50px;
+    padding: 5px;
+    border: 1px solid darkslateblue;
+    background: floralwhite;
+    width: 100px;
+    height: 100px;
+}
+#menuRight a, #menuLeft a {
+    color: #483d8b;
+}
+#menuRight ul, #menuLeft ul {
+    list-style: none;
+}
+a:hover {
+    color: #3d8b48;
+}
+#menuLeft a:hover, #menuRight a:hover {
+    color: #3d8b48;
+}
+button:hover {
+    cursor: pointer;
 }

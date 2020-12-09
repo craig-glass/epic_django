@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Blog Posts</h1>
+    <h1>Announcements</h1>
     <table>
     {% for post in blog_posts %}
         <tr>
@@ -11,6 +11,7 @@
                 <li>{{ post.text }}</li>
                 <br>
                 <li><i>{{ post.author }}</i></li>
+                <br>
             </ul>
         </tr>
         <hr>
