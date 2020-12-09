@@ -23,6 +23,7 @@
     </div>
 </header>
 <div id="pageContainer">
+{% if user.is_authenticated %}
     <div id="menuLeft">
         <ul>
             <li><a href="#">Modules</a></li>
@@ -33,10 +34,12 @@
 
         </ul>
     </div>
+{% endif %}
     <div class="container">
         {% block content %}
     {% endblock %}
     </div>
+{% if user.is_authenticated %}
     <div id="menuRight">
         <ul>
             <li><a href="{% url 'blog' %}">Announcements</a></li>
@@ -46,6 +49,7 @@
             <li><a href="#">Help</a></li>
         </ul>
     </div>
+{% endif %}
 </div>
 </body>
 </html>
