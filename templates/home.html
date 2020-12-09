@@ -3,10 +3,7 @@
     <h1>The University of Life</h1>
     {% if user.is_authenticated %}
         Hi {{ user.username }}!
-        <br><br>
-        <a href="{% url 'admin:index' %}">Admin</a>
-        <br>
-        <p><a href="{% url 'logout' %}">Log Out</a></p>
+
     {% else %}
         <p>Welcome to the home page of the Univerisity of Life! </p>
     {% endif %}
