@@ -1,6 +1,7 @@
 .idea
 Pipfile.lock
 venv
+*.pyc
 accounts/migrations
 announcements/migrations
 courses/migrations
