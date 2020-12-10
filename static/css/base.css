@@ -44,7 +44,7 @@ header a {
     justify-content: space-evenly;
 }
 .container {
-    width: 60%;
+    width: 75vw;
     float: left;
     color: dimgray;
     padding: 20px;
@@ -64,7 +64,6 @@ h1 {
     float: left;
     margin-top: 50px;
     padding: 5px;
-    border: 1px solid darkslateblue;
     background: floralwhite;
     width: 100px;
     height: 100px;
