@@ -82,29 +82,29 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Heroku database credentials
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd4esdfimbhgu8p',
-        'USER': 'igdgdobyolyluv',
-        'PASSWORD': '6afe33c6778dc486d447dcfce564fbc58320da217ef4925c125354d7e23e4482',
-        'HOST': 'ec2-52-20-66-171.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'd4esdfimbhgu8p',
+#         'USER': 'igdgdobyolyluv',
+#         'PASSWORD': '6afe33c6778dc486d447dcfce564fbc58320da217ef4925c125354d7e23e4482',
+#         'HOST': 'ec2-52-20-66-171.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 # Local database credentials
 # NOTE - In PyCharm you can user ctrl+/ to auto comment/uncomment a selection (faster than using multiline-strings)
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'epic',
-#         'USER': 'postgres',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'epic',
+        'USER': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 
