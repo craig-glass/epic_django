@@ -1,3 +1,11 @@
 .idea
 Pipfile.lock
 venv
+accounts/migrations
+announcements/migrations
+courses/migrations
+home/migrations
+login/migrations
+modules/migrations
+pages/migrations
+signup/migrations
