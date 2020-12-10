@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import TemplateView
 
-# Add all new apps to urlpatterns
 urlpatterns = [
-    path('', include("login.urls")),
-    path('', include('announcements.urls')),
-    path('accounts/', include('accounts.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('accounts/', include('accounts.urls'), name='accounts'),
+    path('home/', include('home.urls'), name='home'),
+    path('announcements/', include('announcements.urls'), name='announcements'),
+    path('login/', include('login.urls'), name='login'),
+    path('signup/', include('signup.urls'), name='signup'),
+    path('pages/', include('pages.urls'), name='pages'),
+    path('courses/', include('courses.urls'), name='courses'),
+    path('modules/', include('modules.urls'), name='modules'),
 ]

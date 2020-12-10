@@ -39,10 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-    'login',
     'accounts',
-    'pages',
+    'home',
     'announcements',
+    'login',
+    'signup',
+    'pages',
+    'courses',
+    'modules',
 ]
 
 MIDDLEWARE = [
@@ -81,31 +85,31 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 # Heroku database credentials
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd4esdfimbhgu8p',
-        'USER': 'igdgdobyolyluv',
-        'PASSWORD': '6afe33c6778dc486d447dcfce564fbc58320da217ef4925c125354d7e23e4482',
-        'HOST': 'ec2-52-20-66-171.compute-1.amazonaws.com',
-        'PORT': '5432',
+if (DEBUG):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'epic',
+            'USER': 'postgres',
+            'PASSWORD': 'mysecretpassword',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'd4esdfimbhgu8p',
+            'USER': 'igdgdobyolyluv',
+            'PASSWORD': '6afe33c6778dc486d447dcfce564fbc58320da217ef4925c125354d7e23e4482',
+            'HOST': 'ec2-52-20-66-171.compute-1.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
 
 # Local database credentials
 # NOTE - In PyCharm you can user ctrl+/ to auto comment/uncomment a selection (faster than using multiline-strings)
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'epic',
-#         'USER': 'postgres',
-#         'PASSWORD': 'mysecretpassword',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
 
 
 
@@ -156,4 +160,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-AUTH_USER_MODEL = 'accounts.Account'
+AUTH_USER_MODEL = 'accounts.Profiles'
