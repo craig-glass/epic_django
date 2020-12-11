@@ -19,12 +19,12 @@ from django.urls import path
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
-    path('accounts/', include('accounts.urls'), name='accounts'),
-    path('home/', include('home.urls'), name='home'),
-    path('announcements/', include('announcements.urls'), name='announcements'),
-    path('login/', include('login.urls'), name='login'),
-    path('signup/', include('signup.urls'), name='signup'),
-    path('pages/', include('pages.urls'), name='pages'),
-    path('courses/', include('courses.urls'), name='courses'),
-    path('modules/', include('modules.urls'), name='modules'),
+    path('accounts/', include('accounts.urls')),
+    path('home/', include('home.urls')),
+    path('announcements/', include('announcements.urls')),
+    path('login/', include('login.urls')),
+    path('signup/', include('signup.urls')),
+    path('pages/', include('pages.urls')),
+    path('courses/', include('courses.urls')),
+    path('modules/', include('modules.urls')),
 ]
