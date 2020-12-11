@@ -161,3 +161,7 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 AUTH_USER_MODEL = 'accounts.Profiles'
+if DEBUG: 
+    FIXTURE_DIRS = [
+        'pages/debug_fixtures'
+    ]

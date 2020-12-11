@@ -15,3 +15,9 @@ def page(request):
     }
     print(context['page_id'])
     return HttpResponse(template.render(context, request))
+
+
+def add_page(request):
+    template = loader.get_template('pages/page_add.html')
+    context = {}
+    return HttpResponse(template.render(context, request))

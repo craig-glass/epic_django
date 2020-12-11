@@ -14,7 +14,7 @@ class Pages(models.Model):
     file = models.FileField(storage=page_storage, null=False)
     date_stored = models.DateTimeField(default=timezone.now, null=False)
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
 
 
 class Media(models.Model):
