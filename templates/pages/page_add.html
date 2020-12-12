@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-    {%  load static %}
+    {% load static %}
     <link rel="stylesheet" href="{% static 'pages/css/page_add.css' %}">
 
     <h1>Add Page</h1>
 
     <label for="page-name-input">Name:</label>
     <input type="text" id="page-name-input">
-    <button onclick="add_record(null)">+ new record</button>
+    <button onclick="addRecord(null)">+ new record</button>
     <br>
 
     <div id='main'>
