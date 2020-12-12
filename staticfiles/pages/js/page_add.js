@@ -180,3 +180,36 @@ function set_record_text(record) {
 
     content.appendChild(textArea);
 }
+
+function save() {
+    let page_data = {
+        "name": document.getElementById("page-name-input").value,
+        "records": []
+    };
+    for (let record of document.getElementById("main").querySelectorAll("div[class='record']")) {
+        let record_data = {};
+        let contents = record.querySelector("div[class='content']");
+        let type = record.querySelector("div[class='top']").querySelector("select[class='type']").value;
+        record_data["type"] = type;
+        switch (type) {
+            case "text":
+                record_data["data"] = contents.querySelector("textarea").value;
+                break;
+        }
+        page_data["records"].push(record_data);
+    }
+    $.ajax({
+        url: "/pages/ajax/save_page/",
+        type: "POST",
+        data: {"page data": JSON.stringify(page_data)},
+        dataType: "json",
+        success: function (response) {
+            document.getElementById("save-response-p").innerHTML = "Page stored with id: " +
+                response["page_id"];
+        },
+        error: function (response) {
+            document.getElementById("save-response-p").innerHTML = "Failed to save. Reason: " +
+                response["responseText"];
+        }
+    });
+}

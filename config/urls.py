@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import TemplateView
 
+
 urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('home/', include('home.urls')),

@@ -5,3 +5,6 @@
 Please add all app/migrations directories to the .gitignore file
 
 Make use of the settings.debug variable rather than commenting things out
+
+All ajax calls should have their URL's prefixed with 'ajax/', and ajax
+functions should have their names suffixed with '_ajax'

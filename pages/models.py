@@ -3,14 +3,15 @@ from django.core.files.storage import FileSystemStorage
 from django.db import models
 from django.utils import timezone
 
-page_storage = FileSystemStorage(location='/files/pages')
-media_storage = FileSystemStorage(location='/files/media')
-answer_storage = FileSystemStorage(location='/files/answers')
+page_storage = FileSystemStorage(location='files/pages')
+media_storage = FileSystemStorage(location='files/media')
+answer_storage = FileSystemStorage(location='files/answers')
 
 
 class Pages(models.Model):
     page_id = models.AutoField(primary_key=True, null=False)
 
+    page_name = models.CharField(max_length=150, null=False)
     file = models.FileField(storage=page_storage, null=False)
     date_stored = models.DateTimeField(default=timezone.now, null=False)
 
