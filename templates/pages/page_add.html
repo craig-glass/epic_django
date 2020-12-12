@@ -4,12 +4,12 @@
     <link rel="stylesheet" href="{% static 'pages/css/page_add.css' %}">
     <h1>Add Page</h1>
 
+    <button onclick="add_record(null)">+ new record</button>
+
     <div id='main'>
 
     </div>
 
     <a href='{% url 'page_index' %}'>Pages Home</a>
-
     <script src='{% static "pages/js/page_add.js" %}'></script>
-
 {% endblock %}
