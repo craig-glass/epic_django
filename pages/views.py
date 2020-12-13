@@ -14,12 +14,14 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-def page(request):
+def page(request, page_id):
+    """ Read page of the given id and redirect to page_display template with page data """
     template = loader.get_template('pages/page_display.html')
+    selected_page = Pages.objects.get(page_id=page_id)
     context = {
-        'page_id': request.GET['page_id']
+        'page_name': selected_page.page_name,
+        'page_data': json.loads(selected_page.file.read())
     }
-    print(context['page_id'])
     return HttpResponse(template.render(context, request))
 
 

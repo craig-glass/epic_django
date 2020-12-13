@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Page</h1>
+    <h1>{{ page_name }}</h1>
+
+    {% for record in page_data %}
+        <div style="border: 1px solid lightblue; margin-top: 20px">
+            {% if record.type == "text" %}
+                <a>
+                    {{ record.data|linebreaks }}
+                </a>
+            {% endif %}
+        </div>
+    {% endfor %}
 
 {% endblock %}
