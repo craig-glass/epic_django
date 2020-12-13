@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>{{ page_name }}</h1>
+    <div style='overflow: hidden'>
+        <button style='float: right' onclick='window.location.replace("/pages/edit/{{ page_id }}");'>Edit ✎</button>
+    </div>
 
     {% for record in page_data %}
-        <div style="border: 1px solid lightblue; margin-top: 20px">
-            {% if record.type == "text" %}
-                <a>
+        <div style='border: 1px solid lightblue; margin-top: 20px'>
+            {% if record.type == 'text' %}
+                <p>
                     {{ record.data|linebreaks }}
-                </a>
+                </p>
             {% endif %}
         </div>
     {% endfor %}

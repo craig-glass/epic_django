@@ -1,9 +1,26 @@
 
 let textOptions = "";
 let idCounter = 0;
-
 generateOptions();
-addRecord(null)
+if (pageId === 'null') { // No page id given, create new page
+    pageId = null;
+    addRecord(null, null);
+} else { // Page id given, edit page
+    setEditMode();
+    getPageData(pageId);
+}
+
+/**
+ * Alter html to show edit mode specific content
+ */
+function setEditMode() {
+    document.getElementById("header").innerHTML = "Edit Page";
+    let previewButton = document.getElementById("preview-button");
+    previewButton.onclick = function() {
+        window.location.replace("/pages/page/" + pageId);
+    }
+    previewButton.hidden = false;
+}
 
 /**
  * Generate <option> tags to populate the type <selector> with in each record
@@ -13,10 +30,11 @@ function generateOptions() {
 }
 
 /**
- * Add new record to the page in the position of record_insert_id, or at the end if null or not found.
- * @param {String|null} record_insert_id Id of an existing record to insert new record before
+ * Add new record to the page in the position of recordInsertId, or at the end if null or not found.
+ * @param {String|null} recordInsertId Id of an existing record to insert new record before
+ * @param {Object.<String, any>|null} recordMeta Metadata describing the contents of the record
  */
-function addRecord(record_insert_id) {
+function addRecord(recordInsertId, recordMeta) {
     let main = document.getElementById("main");
 
     // Record <div> to hold the data section
@@ -63,11 +81,16 @@ function addRecord(record_insert_id) {
     typeSelector.className = "type";
     typeSelector.innerHTML = textOptions;
     typeSelector.style.float = "left";
+    if (recordMeta !== null) {
+        typeSelector.value = recordMeta["type"];
+    } else {
+        typeSelector.value = "text";
+    }
 
     // <button> to add new record below this record
     let addNewButton = document.createElement("button");
     addNewButton.innerHTML = "+";
-    addNewButton.onclick = function () { addRecord(record.id); };
+    addNewButton.onclick = function () { addRecord(record.id, null); };
     addNewButton.style.float = "left";
 
     // <button> to remove this record
@@ -99,23 +122,23 @@ function addRecord(record_insert_id) {
 
     let success = false;
     let next = false;
-    // Find record_insert_id and insert new record before it
+    // Find recordInsertId and insert new record before it
     for (let node of main.childNodes) {
         if (next) {
             main.insertBefore(record, node);
             success = true;
             break;
         }
-        if (node.id === record_insert_id) {
+        if (node.id === recordInsertId) {
             next = true;
         }
     }
-    // Append new record if record_insert_id was not found
+    // Append new record if recordInsertId was not found
     if (!success) {
         main.appendChild(record);
     }
     // Update contents <div> to hold corresponding data type
-    setRecord(record.id);
+    setRecord(record.id, recordMeta);
 }
 
 /**
@@ -152,15 +175,16 @@ function moveRecord(record_id, direction) {
 /**
  * Set the content <div> in the record to contain elements corresponding to its type
  * @param {String} record_id Id of the record to update
+ * @param {Object.<String, any>|null} recordMeta Metadata describing the contents of the record
  */
-function setRecord(record_id) {
+function setRecord(record_id, recordMeta) {
     let record = document.getElementById(record_id);
     let type = record.querySelector("div[class='top']").querySelector("select[class='type']").value;
     record.querySelector("div[class='content']").innerHTML = "";
     // Call setup function corresponding to the set record type
     switch (type) {
         case "text":
-            setRecordText(record);
+            setRecordText(record, recordMeta);
             break;
     }
 }
@@ -168,8 +192,9 @@ function setRecord(record_id) {
 /**
  * Set record content <div> to contain text-area based elements
  * @param {HTMLElement} record Record to update
+ * @param {Object.<String, any>|null} recordMeta Metadata describing the contents of the record
  */
-function setRecordText(record) {
+function setRecordText(record, recordMeta) {
     let content = record.querySelector("div[class='content']");
     let textArea = document.createElement("textarea");
     textArea.style.width = "100%";
@@ -177,11 +202,20 @@ function setRecordText(record) {
         textArea.style.height = '';
         textArea.style.height = textArea.scrollHeight + 3 + "px"
     };
+    if (recordMeta !== null) {
+        if (recordMeta["type"] === "text") {
+            textArea.value = recordMeta["data"]
+        }
+    }
 
     content.appendChild(textArea);
 }
 
+/**
+ * Call ajax to store the page in the databse
+ */
 function save() {
+    // Parse page data into json format
     let pageData = {
         "name": document.getElementById("page-name-input").value,
         "records": []
@@ -198,17 +232,52 @@ function save() {
         }
         pageData["records"].push(recordData);
     }
+    // Call save ajax
     $.ajax({
         url: "/pages/ajax/save_page/",
         type: "POST",
-        data: {"page data": JSON.stringify(pageData)},
+        data: {
+            "page_id": pageId,
+            "page_data": JSON.stringify(pageData)
+        },
         dataType: "json",
         success: function (response) {
-            document.getElementById("save-response-p").innerHTML = "Page stored with id: " +
-                response["page_id"];
+            let messageLabel = document.getElementById("save-response-p");
+            if (response["overwrite"]) {
+                messageLabel.innerHTML = "Page with id: " + response["page_id"] + " has been updated";
+            } else {
+                // On successful creation redirect to the edit page for the new page
+                window.location.replace("/pages/edit/" + response["page_id"]);
+            }
+
         },
         error: function (response) {
             document.getElementById("save-response-p").innerHTML = "Failed to save. Reason: " +
+                response["responseText"];
+        }
+    });
+}
+
+/**
+ * Load data for a page of given id from the database
+ * @param {String} pageId Id of the page to load
+ */
+function getPageData(pageId) {
+    $.ajax({
+        url: "/pages/ajax/get_page_data/",
+        type: "POST",
+        data: {"page_id": pageId},
+        dataType: "json",
+        success: function (response) {
+            document.getElementById("page-name-input").value = response["page_name"];
+            document.getElementById("main").innerHTML = "";
+            // Load received data into records
+            for (let record of response["page_data"]) {
+                addRecord(null, record);
+            }
+        },
+        error: function (response) {
+            document.getElementById("save-response-p").innerHTML = "Failed to load. Reason: " +
                 response["responseText"];
         }
     });
