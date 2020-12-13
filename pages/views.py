@@ -1,9 +1,9 @@
+import json
+import os
+
+from django.core.files import File
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
-from django.core.files import File
-
-import os
-import json
 
 from .models import Pages
 
@@ -29,18 +29,29 @@ def add_page(request):
     return HttpResponse(template.render(context, request))
 
 
+def get_page_count_ajax(request):
+    count = Pages.objects.count()
+    return JsonResponse({"count": count})
+
+
+def get_pages_ajax(request):
+    pages = list(Pages.objects.values_list('page_id', 'page_name', flat=False).order_by('page_id', 'page_name')
+                 [int(request.POST.get("start", 0)):int(request.POST.get("stop", 10))])
+    return JsonResponse({"pages": pages})
+
+
 def save_ajax(request):
     """
     Take json format page data and store as new page in database
     Respond with either success or failure message
     """
-    if request.method == "POST":
-        page_data = json.loads(request.POST.get("page data", None).replace("'", '"'))
-        new_page = Pages(page_name=page_data["name"])
+    if request.method == 'POST':
+        page_data = json.loads(request.POST.get('page data', None).replace("'", '"'))
+        new_page = Pages(page_name=page_data['name'])
         new_page.save()  # Save to auto generate id for use in file name
-        filename = str(new_page.page_id) + ".json"
-        with open(filename, "w+") as f:
-            f.write(str(page_data["records"]).replace("'", '"'))
+        filename = str(new_page.page_id) + '.json'
+        with open(filename, 'w+') as f:
+            f.write(str(page_data['records']).replace("'", '"'))
             new_page.file = File(f)
             new_page.save()
         os.remove(filename)

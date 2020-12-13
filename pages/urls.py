@@ -3,7 +3,9 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='page_index'),
-    path('page/<int:page_id>/', views.page),
+    path('page/<str:page_id>/', views.page),
     path('add/', views.add_page, name='page_add'),
     path('ajax/save_page/', views.save_ajax, name='save_page'),
+    path('ajax/get_page_count/', views.get_page_count_ajax, name='get_page_count'),
+    path('ajax/get_pages/', views.get_pages_ajax, name='get_pages'),
 ]
