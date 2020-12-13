@@ -283,6 +283,10 @@ function getPageData(pageId) {
     });
 }
 
+/**
+ * Delete the current page
+ * Show warning message the first time called
+ */
 function deletePage() {
     if (haveYouBeenWarned) {
         $.ajax({
@@ -299,8 +303,8 @@ function deletePage() {
             }
         });
     } else {
-        window.alert("Warning! A page cannot be recovered after being deleted.\n" +
-            "Press again if you are sure you want to delete this page.")
+        window.alert("Warning! This action will permanently delete this page.\n" +
+            "Press again if you are sure you want to proceed.")
         haveYouBeenWarned = true;
     }
 }
