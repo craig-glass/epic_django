@@ -1,4 +1,5 @@
 
+let haveYouBeenWarned = false;
 let textOptions = "";
 let idCounter = 0;
 generateOptions();
@@ -283,17 +284,23 @@ function getPageData(pageId) {
 }
 
 function deletePage() {
-    $.ajax({
-        url: "/pages/ajax/delete_page/",
-        type: "POST",
-        data: {"page_id": pageId},
-        dataType: "json",
-        success: function (response) {
-            window.location.replace("/pages/")
-        },
-        error: function (response) {
-            document.getElementById("save-response-p").innerHTML = "Failed to delete. Reason: " +
-                response["responseText"];
-        }
-    });
+    if (haveYouBeenWarned) {
+        $.ajax({
+            url: "/pages/ajax/delete_page/",
+            type: "POST",
+            data: {"page_id": pageId},
+            dataType: "json",
+            success: function (response) {
+                window.location.replace("/pages/")
+            },
+            error: function (response) {
+                document.getElementById("save-response-p").innerHTML = "Failed to delete. Reason: " +
+                    response["responseText"];
+            }
+        });
+    } else {
+        window.alert("Warning! A page cannot be recovered after being deleted.\n" +
+            "Press again if you are sure you want to delete this page.")
+        haveYouBeenWarned = true;
+    }
 }
