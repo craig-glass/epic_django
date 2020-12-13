@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Modules, ModuleSubsections, ModuleUsers, SubsectionPages
+from .models import Modules, Contents, ModuleUsers, ContentsPages
 
 admin.site.register(Modules)
-admin.site.register(ModuleSubsections)
+admin.site.register(Contents)
 admin.site.register(ModuleUsers)
-admin.site.register(SubsectionPages)
+admin.site.register(ContentsPages)

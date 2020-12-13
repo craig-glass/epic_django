@@ -30,11 +30,11 @@ class MediaDisplayPage(models.Model):
 
 class PageMedia(models.Model):
     join_id = models.AutoField(primary_key=True, null=False)
-    page = models.ForeignKey(Pages, on_delete=models.CASCADE, null=False)
+    media = models.ForeignKey(Media, on_delete=models.CASCADE, null=False)
     media_page = models.ForeignKey(MediaDisplayPage, on_delete=models.CASCADE, null=False)
 
     class Meta:
-        unique_together = (('page', 'media_page'),)
+        unique_together = (('media', 'media_page'),)
 
 
 class SubmissionDisplayPage(models.Model):
