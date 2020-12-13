@@ -90,3 +90,11 @@ def get_page_data_ajax(request):
                 'page_data': json.loads(selected_page.file.read())
             })
     return JsonResponse({"responseText": 'Invalid method ' + request.method}, status=500)
+
+
+def delete_page_ajax(request):
+    if request.method == 'POST':
+        page_id = request.POST.get('page_id', 'null')
+        Pages.objects.get(page_id=page_id).delete()
+        return JsonResponse({})
+    return JsonResponse({"responseText": 'Invalid method ' + request.method}, status=500)

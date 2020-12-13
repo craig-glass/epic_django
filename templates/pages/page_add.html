@@ -9,7 +9,7 @@
     <input type="text" id="page-name-input">
     <button onclick="addRecord(null, null)">+ new record</button>
 
-    <button hidden id="preview-button" style="float: right">view page</button>
+    <button hidden id="preview-button" style="float: right" onclick="window.location.replace('/pages/page/' + pageId);">view page</button>
     <br>
 
     <div id='main'>
@@ -19,6 +19,7 @@
     <br>
     <button onclick="save()" style="float:left">Save</button>
     <p id="save-response-p" style="float:left"></p>
+    <button hidden id="delete-page-button" onclick="deletePage()" style="float: right">Delete</button>
     <br>
     <br>
 

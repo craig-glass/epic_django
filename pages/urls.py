@@ -10,4 +10,5 @@ urlpatterns = [
     path('ajax/get_page_count/', views.get_page_count_ajax, name='get_page_count'),
     path('ajax/get_pages/', views.get_pages_ajax, name='get_pages'),
     path('ajax/get_page_data/', views.get_page_data_ajax, name='get_page_data'),
+    path('ajax/delete_page/', views.delete_page_ajax, name='delete_page'),
 ]

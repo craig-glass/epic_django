@@ -16,10 +16,9 @@ if (pageId === 'null') { // No page id given, create new page
 function setEditMode() {
     document.getElementById("header").innerHTML = "Edit Page";
     let previewButton = document.getElementById("preview-button");
-    previewButton.onclick = function() {
-        window.location.replace("/pages/page/" + pageId);
-    }
     previewButton.hidden = false;
+    let deleteButton = document.getElementById("delete-page-button");
+    deleteButton.hidden = false;
 }
 
 /**
@@ -278,6 +277,22 @@ function getPageData(pageId) {
         },
         error: function (response) {
             document.getElementById("save-response-p").innerHTML = "Failed to load. Reason: " +
+                response["responseText"];
+        }
+    });
+}
+
+function deletePage() {
+    $.ajax({
+        url: "/pages/ajax/delete_page/",
+        type: "POST",
+        data: {"page_id": pageId},
+        dataType: "json",
+        success: function (response) {
+            window.location.replace("/pages/")
+        },
+        error: function (response) {
+            document.getElementById("save-response-p").innerHTML = "Failed to delete. Reason: " +
                 response["responseText"];
         }
     });
