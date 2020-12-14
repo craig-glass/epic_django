@@ -59,8 +59,10 @@ def save_ajax(request):
         page_id = request.POST.get('page_id', None)
         if page_id:
             overwrite_page = Pages.objects.get(page_id=page_id)
-            with open(overwrite_page.file.path, "w+") as f:
-                f.write(str(page_data['records']))
+            overwrite_page.page_name = page_data['name']
+            with open(overwrite_page.file.path, 'w+') as f:
+                f.write(json.dumps(page_data['records']))
+            overwrite_page.save()
             return JsonResponse({'page_id': str(page_id), 'overwrite': True})
         else:
             new_page = Pages(page_name=page_data['name'])
