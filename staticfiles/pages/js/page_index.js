@@ -80,7 +80,7 @@ function* generateNavigator(currentIndex, step, maxSteps, finalIndex, action) {
     for (let i = -Math.floor(maxSteps / 2) + 1; i < maxSteps / 2 - 1; i++) {
         let startPos = currentIndex + step * i;
         let endPos = Math.min(startPos + step, finalIndex);
-        if (startPos >= 0 && startPos <= finalStepIndex) {
+        if (startPos >= 0 && startPos <= finalStepIndex && startPos !== endPos) {
             let stepToIndex = document.createElement("a");
             if (startPos === 0) { // First index does not need a leading comma
                 stepToIndex.innerHTML = startPos + "-" + endPos;
