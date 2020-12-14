@@ -79,16 +79,17 @@ function* generateNavigator(currentIndex, step, maxSteps, finalIndex, action) {
     // Create all navigation links between the arrow links denoted by (start-stop)
     for (let i = -Math.floor(maxSteps / 2) + 1; i < maxSteps / 2 - 1; i++) {
         let startPos = currentIndex + step * i;
+        let endPos = Math.min(startPos + step, finalIndex);
         if (startPos >= 0 && startPos <= finalStepIndex) {
             let stepToIndex = document.createElement("a");
             if (startPos === finalIndex) { // Final index does not need a trailing comma
-                stepToIndex.innerHTML = startPos + "-" + (startPos + step);
+                stepToIndex.innerHTML = startPos + "-" + endPos;
             } else {
-                stepToIndex.innerHTML = startPos + "-" + (startPos + step) + ",";
+                stepToIndex.innerHTML = startPos + "-" + endPos + ",";
             }
             // Don't highlight the link denoting the current index
             if (startPos !== currentIndex) {
-                applyLink(stepToIndex, startPos, startPos + step, action);
+                applyLink(stepToIndex, startPos, endPos, action);
             }
             yield stepToIndex;
         }
@@ -105,7 +106,7 @@ function* generateNavigator(currentIndex, step, maxSteps, finalIndex, action) {
     let forwardOneStepLink = document.createElement("a");
     forwardOneStepLink.innerHTML = "-&gt";
     if (currentIndex !== finalStepIndex) {
-        applyLink(forwardOneStepLink, currentIndex + step, currentIndex + step * 2, action);
+        applyLink(forwardOneStepLink, currentIndex + step, Math.min(currentIndex + step * 2, finalIndex), action);
     }
     yield forwardOneStepLink;
 
