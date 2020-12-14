@@ -72,7 +72,7 @@ function* generateNavigator(currentIndex, step, maxSteps, finalIndex, action) {
     // Show ellipse if the first step is not shown
     if (currentIndex > step * Math.floor(maxSteps / 2 - 1)) {
         let ellipse1 = document.createElement("a");
-        ellipse1.innerHTML = "...,";
+        ellipse1.innerHTML = "...";
         yield ellipse1;
     }
 
@@ -82,10 +82,10 @@ function* generateNavigator(currentIndex, step, maxSteps, finalIndex, action) {
         let endPos = Math.min(startPos + step, finalIndex);
         if (startPos >= 0 && startPos <= finalStepIndex) {
             let stepToIndex = document.createElement("a");
-            if (startPos === finalIndex) { // Final index does not need a trailing comma
+            if (startPos === 0) { // First index does not need a leading comma
                 stepToIndex.innerHTML = startPos + "-" + endPos;
             } else {
-                stepToIndex.innerHTML = startPos + "-" + endPos + ",";
+                stepToIndex.innerHTML = "," + startPos + "-" + endPos;
             }
             // Don't highlight the link denoting the current index
             if (startPos !== currentIndex) {
@@ -98,7 +98,7 @@ function* generateNavigator(currentIndex, step, maxSteps, finalIndex, action) {
     // Show ellipse if the final step is not shown
     if (currentIndex < finalIndex - step * Math.floor(maxSteps / 2)) {
         let ellipse2 = document.createElement("a");
-        ellipse2.innerHTML = "...";
+        ellipse2.innerHTML = ",...";
         yield ellipse2;
     }
 
